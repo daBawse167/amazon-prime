@@ -34,6 +34,7 @@ def home():
 @app.route("/get_data", methods=["POST"])
 def get_data():
     print([x for x in request.form.values()])
+    return render_template("home.html", result1=[x for x in request.form.values()]==['', '', '', '', '', '', ''])
     #if [x for x in request.form.values()]==['', '', '', '', '', '', '']:
      #   return render_template("home.html", result1="Please enter a value in any of the text boxes")
     
