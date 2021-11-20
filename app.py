@@ -33,8 +33,9 @@ def home():
 
 @app.route("/get_data", methods=["POST"])
 def get_data():
-    if [x for x in request.form.values()]==['', '', '', '', '', '', '']:
-        return render_template("home.html", result1="Please enter a value in any of the text boxes")
+    print([x for x in request.form.values()])
+    #if [x for x in request.form.values()]==['', '', '', '', '', '', '']:
+     #   return render_template("home.html", result1="Please enter a value in any of the text boxes")
     
     """features = np.array([["listed_in", "rating", "release_year", "duration", "cast", "director", "country"],
                          [x for x in request.form.values()]])
