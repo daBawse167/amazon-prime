@@ -33,7 +33,7 @@ def home():
 
 @app.route("/get_data", methods=["POST"])
 def get_data():
-    return render_template(result1=request.form.values())
+    return render_template("home.html", result1=request.form.values())
     
 if __name__=='__main__':
     app.run(debug=True)
