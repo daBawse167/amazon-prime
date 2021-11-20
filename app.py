@@ -33,8 +33,10 @@ def home():
 
 @app.route("/get_data", methods=["POST"])
 def get_data():
-
-    message = [x for x in request.form.values()].split(", ")
+    message = [x for x in request.form.values()]
+    
+    if len(message)>7:
+        message = [x for x in request.form.values()].split(", ")
     
     if message==['', '', '', '', '', '', '']:
         return render_template("home.html", result1="Please enter a value in any of the text boxes")
