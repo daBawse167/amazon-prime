@@ -33,17 +33,12 @@ def home():
 
 @app.route("/get_data", methods=["POST"])
 def get_data():
-    message = [x for x in request.form.values()]
-    
-    if len(message)>7:
-        message = [x for x in request.form.values()].split(", ")
-    
-    if message==['', '', '', '', '', '', '']:
+
+    if [x for x in request.form.values()]==['', '', '', '', '', '', '']:
         return render_template("home.html", result1="Please enter a value in any of the text boxes")
     
-    return render_template("home.html", result1=message)
-    
-    features = np.array([["listed_in", "rating", "release_year", "duration", "cast", "director", "country"], message])
+    features = np.array([["listed_in", "rating", "release_year", "duration", "cast", "director", "country"],
+                         [x for x in request.form.values()]])
     non_empty = [x for x in features[1] if x != ""]
     non_empty_idx = [list(features[1]).index(x) for x in non_empty]
     features = features.T[non_empty_idx]
