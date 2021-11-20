@@ -41,7 +41,7 @@ def get_data():
     if message==['', '', '', '', '', '', '']:
         return render_template("home.html", result1="Please enter a value in any of the text boxes")
     
-    features = np.array([["listed_in", "rating", "release_year", "duration", "cast", "director", "country"], message)
+    features = np.array([["listed_in", "rating", "release_year", "duration", "cast", "director", "country"], message])
     non_empty = [x for x in features[1] if x != ""]
     non_empty_idx = [list(features[1]).index(x) for x in non_empty]
     features = features.T[non_empty_idx]
