@@ -37,11 +37,12 @@ def get_data():
     message = [x for x in request.form.values()]
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
     feats = feature_names
+    website = "home.html"
     
     if message==['', '', '', '', '', '', '']:
-        return render_template("home.html", result1="Please enter a value in any of the text boxes")
+        return render_template(website, result1="Please enter a value in any of the text boxes")
     elif message==[]:
-        return render_template("home.html", result1="Please enter a value in any of the text boxes")
+        return render_template(website, result1="Please enter a value in any of the text boxes")
     
     ry_str = [str(x) for x in list(pd.read_csv("release_year.csv")["0"])]
     dur_str = [str(x) for x in list(pd.read_csv("duration.csv")["0"])]
@@ -60,6 +61,7 @@ def get_data():
                 elif name=="duration" and msg in dur_str:
                     feats.append(name)
                     break
+        website = "secret_home.html"
                     
     features = np.array([feats, message])
     non_empty = [x for x in features[1] if x != ""]
@@ -71,7 +73,7 @@ def get_data():
         input_ = features.T[1][idx]
         
         if not input_.isnumeric():
-            return render_template("home.html", result1="Please enter the duration as a number")
+            return render_template(website, result1="Please enter the duration as a number")
         else:
             features[idx][1] = input_+" min"
             
@@ -80,34 +82,33 @@ def get_data():
         input_ = features.T[1][idx]
         
         if not input_.isnumeric():
-            return render_template("home.html", result1="Please enter the release year as a number")
+            return render_template(website, result1="Please enter the release year as a number")
     
     result = get_features(features)
     input_features = "Results for "+", ".join([str(item) for item in features.T[0]])
     
     if len(result)==0:
-        return render_template("home.html", result1="Your input did not match any movie or TV show in the database")
+        return render_template(website, result1="Your input did not match any movie or TV show in the database")
     elif len(result)==1:
-        return render_template("home.html", input_features=input_features, result1=result[0])
+        return render_template(website, input_features=input_features, result1=result[0])
     elif len(result)==2:
-        return render_template("home.html", input_features=input_features, result1=result[0], result2=result[1])
+        return render_template(website, input_features=input_features, result1=result[0], result2=result[1])
     elif len(result)==3:
-        return render_template("home.html", input_features=input_features, result1=result[0], result2=result[1], result3=result[2])
+        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2])
     elif len(result)==4:
-        return render_template("home.html", input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3])
+        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3])
     elif len(result)==5:
-        return render_template("home.html", input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4])
+        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4])
     elif len(result)==6:
-        return render_template("home.html", input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5])
+        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5])
     elif len(result)==7:
-        return render_template("home.html", input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6])
+        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6])
     elif len(result)==8:
-        return render_template("home.html", input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6], result8=result[7])
+        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6], result8=result[7])
     elif len(result)==9:
-        return render_template("home.html", input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6], result8=result[7], result9=result[8])
+        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6], result8=result[7], result9=result[8])
     elif len(result)>=10:
-        return render_template("home.html", input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6], result8=result[7], result9=result[8], result10=result[9])
+        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6], result8=result[7], result9=result[8], result10=result[9])
     
 if __name__=='__main__':
     app.run(debug=True)
-
