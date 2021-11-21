@@ -36,21 +36,25 @@ def get_data():
 
     message = [x for x in request.form.values()]
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
+    feats = feature_names
     
-    uniques = [np.unique(df[name]) for name in feature_names]
-    feats = []
-    
-    for msg in message:
-        for unique_list in uniques:
-            if msg in unique_list:
-                idx = uniques.index(unique_list) 
-                feats.append(feature_names[idx])
-    
-    if message==['_', '_', '_', '_', '_', '_', '_']:
+    if message==['', '', '', '', '', '', '']:
+        return render_template("home.html", result1="Please enter a value in any of the text boxes")
+    elif message==[]:
         return render_template("home.html", result1="Please enter a value in any of the text boxes")
     
+    if len(message) != 7:
+        uniques = [np.unique(df[name]) for name in feature_names]
+        feats = []
+
+        for msg in message:
+            for unique_list in uniques:
+                if msg in unique_list:
+                    idx = uniques.index(unique_list) 
+                    feats.append(feature_names[idx])
+    
     features = np.array([feats, message])
-    non_empty = [x for x in features[1] if x != "_"]
+    non_empty = [x for x in features[1] if x != ""]
     non_empty_idx = [list(features[1]).index(x) for x in non_empty]
     features = features.T[non_empty_idx]
     
