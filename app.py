@@ -34,7 +34,10 @@ def home():
 @app.route("/get_data", methods=["POST"])
 def get_data():
 
-    message = [x for x in request.form.values()][0]
+    message = [x for x in request.form.values()][0][1:-1]
+    
+    data = message.split(", ")
+    return render_template("home.html", result1=str(len(data)))
     
     #return render_template("home.html", result1=str(message)+" "+str(len(message)))
     
