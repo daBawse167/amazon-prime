@@ -34,6 +34,10 @@ def home():
 @app.route("/get_data", methods=["POST"])
 def get_data():
 
+    return render_template("home.html", result1=[x for x in request.form.values()])
+    
+    message = [x for x in request.form.values()]
+    
     if len(message) != 7:
         message = [x for x in request.form.values()][0][1:-1]
         message = message.split(", ")
