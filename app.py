@@ -35,14 +35,12 @@ def home():
 def get_data():
 
     message = [x for x in request.form.values()][0][1:-1]
-    
-    data = message.split(", ")
-    return render_template("home.html", result1=str(len(data)))
-    
-    #return render_template("home.html", result1=str(message)+" "+str(len(message)))
+    message = message.split(", ")
     
     if message==['', '', '', '', '', '', '']:
         return render_template("home.html", result1="Please enter a value in any of the text boxes")
+    
+    render_template("home.html", result1=message)
     
     features = np.array([["listed_in", "rating", "release_year", "duration", "cast", "director", "country"], message])
     non_empty = [x for x in features[1] if x != ""]
