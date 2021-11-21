@@ -43,15 +43,24 @@ def get_data():
     elif message==[]:
         return render_template("home.html", result1="Please enter a value in any of the text boxes")
     
+    ry_str = [str(x) for x in list(pd.read_csv("release_year.csv")["0"])]
+    dur_str = [str(x) for x in list(pd.read_csv("duration.csv")["0"])]
+    
     if len(message) != 7:
+        feats = []
         for msg in message:
             for name in feature_names:
-                unique_list = list(pd.read_csv(name+".csv"))
-                if msg in unique_list:
-                    idx = uniques.index(unique_list) 
-                    feats.append(feature_names[idx])
+                unique_list = list(pd.read_csv(name+".csv")['0'])
+                if msg.lower() in unique_list:
+                    feats.append(name)
                     break
-                
+                elif name=="release_year" and msg in ry_str:
+                    feats.append(name)
+                    break
+                elif name=="duration" and msg in dur_str:
+                    feats.append(name)
+                    break
+                    
     features = np.array([feats, message])
     non_empty = [x for x in features[1] if x != ""]
     non_empty_idx = [list(features[1]).index(x) for x in non_empty]
@@ -101,3 +110,4 @@ def get_data():
     
 if __name__=='__main__':
     app.run(debug=True)
+
