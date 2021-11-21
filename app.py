@@ -53,6 +53,8 @@ def get_data():
                     idx = uniques.index(unique_list) 
                     feats.append(feature_names[idx])
     
+    return render_template("home.html", result1=feats)
+    
     features = np.array([feats, message])
     non_empty = [x for x in features[1] if x != ""]
     non_empty_idx = [list(features[1]).index(x) for x in non_empty]
