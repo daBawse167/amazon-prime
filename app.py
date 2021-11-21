@@ -36,7 +36,7 @@ def get_data():
 
     message = [x for x in request.form.values()][0]
     
-    return render_template("home.html", result1=message)
+    #return render_template("home.html", result1=str(message)+" "+str(len(message)))
     
     if message==['', '', '', '', '', '', '']:
         return render_template("home.html", result1="Please enter a value in any of the text boxes")
