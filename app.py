@@ -39,15 +39,13 @@ def get_data():
     feats = feature_names
     website = "home.html"
     
-    if message==['', '', '', '', '', '', '']:
-        return render_template(website, result1="Please enter a value in any of the text boxes")
-    elif message==[]:
-        return render_template(website, result1="Please enter a value in any of the text boxes")
-    
     ry_str = [str(x) for x in list(pd.read_csv("release_year.csv")["0"])]
     dur_str = [str(x) for x in list(pd.read_csv("duration.csv")["0"])]
     
-    if len(message) != 7:
+    if message==['', '', '', '', '', '', '']:
+        return render_template(website, result1="Please enter a value in any of the text boxes")
+    
+    if len(message) != 7 and len(message) > 0:
         feats = []
         for msg in message:
             for name in feature_names:
@@ -63,6 +61,10 @@ def get_data():
                     break
         website = "secret_home.html"
                     
+    
+    if message==[]:
+        return render_template("secret_home.html", result1="Please enter a value in any of the text boxes")
+    
     features = np.array([feats, message])
     non_empty = [x for x in features[1] if x != ""]
     non_empty_idx = [list(features[1]).index(x) for x in non_empty]
@@ -85,7 +87,7 @@ def get_data():
             return render_template(website, result1="Please enter the release year as a number")
     
     result = get_features(features)
-    input_features = "Results for "+", ".join([str(item) for item in features.T[0]])
+    input_features = "Results for "+", ".join([x for x in message if x != ""])
     
     if len(result)==0:
         return render_template(website, result1="Your input did not match any movie or TV show in the database")
