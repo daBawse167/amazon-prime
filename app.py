@@ -59,8 +59,6 @@ def get_data():
     if message==['', '', '', '', '', '', '']:
         return render_template(website, result1="Please enter a value in any of the text boxes")
     
-    return render_template(website, result1=message)
-    
     if message[3] != "":
         input_ = message[3]
         
@@ -68,7 +66,9 @@ def get_data():
             return render_template(website, result1="Please enter the duration as a number")
         else:
             features[idx][1] = input_+" min"
-            
+    
+    return render_template(website, result1=message)
+    
     if message[2] != "":
         input_ = message[2]
         
