@@ -1,3 +1,4 @@
+import json
 import numpy as np
 import pandas as pd
 from flask import Flask, render_template, request
@@ -35,90 +36,4 @@ def home():
 def get_data():
 
     message = request.get_data()
-    return render_template("home.html", result1=message)
-    
-    feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
-    feats = feature_names
-    website = "home.html"
-    
-    ry_str = [str(x) for x in list(pd.read_csv("release_year.csv")["0"])]
-    dur_str = [str(x) for x in list(pd.read_csv("duration.csv")["0"])]
-    
-    if message==['', '', '', '', '', '', '']:
-        return render_template(website, result1="Please enter a value in any of the text boxes")
-    
-    #message = "['"+"', '".join(message)+"']"
-    
-    if len(message) != 7 and len(message) > 0:
-        feats = []
-        for msg in message:
-            for name in feature_names:
-                unique_list = list(pd.read_csv(name+".csv")['0'])
-                if msg.lower() in unique_list:
-                    feats.append(name)
-                    break
-                elif name=="release_year" and msg in ry_str:
-                    feats.append(name)
-                    break
-                elif name=="duration" and msg in dur_str:
-                    feats.append(name)
-                    break
-        website = "secret_home.html"
-    
-    return render_template(website, result1=message)
-    
-    if message==[]:
-        return render_template("secret_home.html", result1="Please enter a value in any of the text boxes")
-    
-    features = np.array([feats, message])
-    print(features)
-    non_empty = [x for x in features[1] if x != ""]
-    print(non_empty)
-    non_empty_idx = [list(features[1]).index(x) for x in non_empty]
-    print(non_empty_idx)
-    features = features.T[non_empty_idx]
-    
-    if "duration" in features.T[0]:
-        idx = list(features.T[0]).index("duration")
-        input_ = features.T[1][idx]
-        
-        if not input_.isnumeric():
-            return render_template(website, result1="Please enter the duration as a number")
-        else:
-            features[idx][1] = input_+" min"
-            
-    if "release_year" in features.T[0]:
-        idx = list(features.T[0]).index("release_year")
-        input_ = features.T[1][idx]
-        
-        if not input_.isnumeric():
-            return render_template(website, result1="Please enter the release year as a number")
-    
-    result = get_features(features)
-    input_features = "Results for "+", ".join([x for x in message if x != ""])
-    
-    if len(result)==0:
-        return render_template(website, result1="Your input did not match any movie or TV show in the database")
-    elif len(result)==1:
-        return render_template(website, input_features=input_features, result1=result[0])
-    elif len(result)==2:
-        return render_template(website, input_features=input_features, result1=result[0], result2=result[1])
-    elif len(result)==3:
-        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2])
-    elif len(result)==4:
-        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3])
-    elif len(result)==5:
-        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4])
-    elif len(result)==6:
-        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5])
-    elif len(result)==7:
-        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6])
-    elif len(result)==8:
-        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6], result8=result[7])
-    elif len(result)==9:
-        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6], result8=result[7], result9=result[8])
-    elif len(result)>=10:
-        return render_template(website, input_features=input_features, result1=result[0], result2=result[1], result3=result[2], result4=result[3], result5=result[4], result6=result[5], result7=result[6], result8=result[7], result9=result[8], result10=result[9])
-    
-if __name__=='__main__':
-    app.run(debug=True)
+    return render_template("home.html", result1=str(request.get_data()).split(' <select name="'))
