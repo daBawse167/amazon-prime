@@ -34,7 +34,9 @@ def home():
 @app.route("/get_data", methods=["POST"])
 def get_data():
 
-    message = [x for x in request.form.values()]
+    message = request.get_data()
+    return render_template("home.html", message)
+    
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
     feats = feature_names
     website = "home.html"
