@@ -45,6 +45,8 @@ def get_data():
     if message==['', '', '', '', '', '', '']:
         return render_template(website, result1="Please enter a value in any of the text boxes")
     
+    #message = "['"+"', '".join(message)+"']"
+    
     if len(message) != 7 and len(message) > 0:
         feats = []
         for msg in message:
@@ -60,14 +62,18 @@ def get_data():
                     feats.append(name)
                     break
         website = "secret_home.html"
-                    
+    
+    return render_template(website, result1=message)
     
     if message==[]:
         return render_template("secret_home.html", result1="Please enter a value in any of the text boxes")
     
     features = np.array([feats, message])
+    print(features)
     non_empty = [x for x in features[1] if x != ""]
+    print(non_empty)
     non_empty_idx = [list(features[1]).index(x) for x in non_empty]
+    print(non_empty_idx)
     features = features.T[non_empty_idx]
     
     if "duration" in features.T[0]:
