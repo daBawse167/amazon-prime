@@ -63,7 +63,7 @@ def get_data():
                     break
         website = "secret_home.html"
     
-    return render_template(website, result1=message.split(", "))
+    return render_template(website, result1=message)
     
     if message==[]:
         return render_template("secret_home.html", result1="Please enter a value in any of the text boxes")
