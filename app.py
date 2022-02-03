@@ -40,15 +40,11 @@ def home():
 
 @app.route("/get_data", methods=["POST"])
 def get_data():
-    website = "home.html"
+    website = "secret_home.html"
     
     message = request.get_data()
     message = str(str(request.get_data()).split(' <select name="'))[4:-3]
     message = message.split("&")
-    
-    if message[1].split("&")[0]=="age_rating":
-        website = "secret_home.html"
-    
     message = [x.split("=")[1].replace("+", " ") for x in message]
     
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
@@ -59,7 +55,7 @@ def get_data():
     if message==['', '', '', '', '', '', '']:
         return render_template(website, result1="Please enter a value in any of the text boxes")
     
-    if message[3] != "":
+    """if message[3] != "":
         input_ = message[3]
         
         if not input_.isnumeric():
@@ -67,13 +63,11 @@ def get_data():
         else:
             features[idx][1] = input_+" min"
     
-    return render_template(website, result1=message)
-    
     if message[2] != "":
         input_ = message[2]
         
         if not input_.isnumeric():
-            return render_template(website, result1="Please enter the release year as a number")
+            return render_template(website, result1="Please enter the release year as a number")"""
     
     input_features = "Results for "+", ".join([x for x in message if x != ""])
     
