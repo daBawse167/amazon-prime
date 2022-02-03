@@ -35,7 +35,7 @@ def home():
 def get_data():
 
     message = request.get_data()
-    return render_template("home.html", message)
+    return render_template("home.html", result1=message)
     
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
     feats = feature_names
