@@ -40,14 +40,18 @@ def home():
 
 @app.route("/get_data", methods=["POST"])
 def get_data():
-
+    website = "home.html"
+    
     message = request.get_data()
     message = str(str(request.get_data()).split(' <select name="'))[4:-3]
     message = message.split("&")
+    
+    if message[1].split("&")[0]=="age_rating":
+        website = "secret_home.html"
+    
     message = [x.split("=")[1].replace("+", " ") for x in message]
     
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
-    website = "home.html"
     
     features = [feature_names, message]
     result = get_features(features)
