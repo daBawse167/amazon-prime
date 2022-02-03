@@ -43,6 +43,7 @@ def get_data():
     website = "secret_home.html"
     
     message = request.get_data()
+    return render_template(website, result1=message)
     message = str(str(request.get_data()).split(' <select name="'))[4:-3]
     message = message.split("&")
     message = [x.split("=")[1].replace("+", " ") for x in message]
