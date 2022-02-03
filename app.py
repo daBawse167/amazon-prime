@@ -53,6 +53,8 @@ def get_data():
     
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
     
+    return render_template(website, result1="Please enter the duration as a number")
+    
     features = [feature_names, message]
     result = get_features(features)
     
