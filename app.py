@@ -40,13 +40,26 @@ def home():
 
 @app.route("/get_data", methods=["POST"])
 def get_data():
-    website = "secret_home.html"
+    website = "home.html"
     
     message = request.get_data()
-    return render_template(website, result1=message)
-    message = str(str(request.get_data()).split(' <select name="'))[4:-3]
-    message = message.split("&")
-    message = [x.split("=")[1].replace("+", " ") for x in message]
+    message = str(message)[2:-1].split("&")
+    category = [x.split("=")[0] for x in message]
+    value = [x.split("=")[1] for x in message]
+    
+    features = {"genre":"", "rating":"", "release_year":"", "duration":"", "actor":"", "director":"", "country":""}
+    
+    for col in category:
+        idx = category.index(col)
+        features[col] = value[idx]
+        
+    message = list(features.values())
+    
+    if message[1].split("&")[0]=="age_rating":
+        website = "secret_home.html"
+    
+    message[4] = message[4].replace("+", " ")
+    message[5] = message[5].replace("+", " ")
     
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
     
@@ -56,19 +69,19 @@ def get_data():
     if message==['', '', '', '', '', '', '']:
         return render_template(website, result1="Please enter a value in any of the text boxes")
     
-    """if message[3] != "":
+    if message[3] != "":
         input_ = message[3]
         
         if not input_.isnumeric():
             return render_template(website, result1="Please enter the duration as a number")
         else:
-            features[idx][1] = input_+" min"
-    
+            features[1][3] = input_+" min"
+            
     if message[2] != "":
         input_ = message[2]
         
         if not input_.isnumeric():
-            return render_template(website, result1="Please enter the release year as a number")"""
+            return render_template(website, result1="Please enter the release year as a number")
     
     input_features = "Results for "+", ".join([x for x in message if x != ""])
     
