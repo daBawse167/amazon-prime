@@ -12,8 +12,6 @@ def get_features(feats):
 
     input_columns = feats[0]
     inputs = feats[1]
-    
-    return render_template("home.html", result1=feats)
 
     indices = [inputs.index(x) for x in inputs if x != ""]
     
@@ -46,6 +44,7 @@ def get_data():
     
     message = request.get_data()
     message = str(message)[2:-1].split("&")
+    return render_template("home.html", result1=message)
     category = [x.split("=")[0] for x in message]
     value = [x.split("=")[1] for x in message]
     
@@ -66,8 +65,7 @@ def get_data():
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
     
     features = [feature_names, message]
-    result = get_features(features)
-    return result
+    result = get_features(features)]
     
     if message==['', '', '', '', '', '', '']:
         return render_template(website, result1="Please enter a value in any of the text boxes")
