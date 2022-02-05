@@ -15,6 +15,8 @@ def get_features(feats):
 
     indices = [inputs.index(x) for x in inputs if x != ""]
     
+    print(input_columns, indices)
+    
     input_columns = [input_columns[idx] for idx in indices]
     inputs = [inputs[idx] for idx in indices]
     
