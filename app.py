@@ -10,12 +10,12 @@ df["release_year"] = [str(x) for x in df['release_year']]
 
 def get_features(feats):
 
-    input_columns = feats[0]    
+    input_columns = feats[0]
     inputs = feats[1]
+    
+    return render_template("home.html", result1=feats)
 
     indices = [inputs.index(x) for x in inputs if x != ""]
-    
-    return render_template("home.html", result1=[input_columns, indices])
     
     input_columns = [input_columns[idx] for idx in indices]
     inputs = [inputs[idx] for idx in indices]
