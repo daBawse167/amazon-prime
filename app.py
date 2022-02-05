@@ -15,7 +15,7 @@ def get_features(feats):
 
     indices = [inputs.index(x) for x in inputs if x != ""]
     
-    print(input_columns, indices)
+    return render_template("home.html", result1=[input_columns, indices])
     
     input_columns = [input_columns[idx] for idx in indices]
     inputs = [inputs[idx] for idx in indices]
@@ -66,7 +66,7 @@ def get_data():
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
     
     features = [feature_names, message]
-    result = get_features(features)
+    return result = get_features(features)
     
     if message==['', '', '', '', '', '', '']:
         return render_template(website, result1="Please enter a value in any of the text boxes")
