@@ -55,8 +55,6 @@ def get_data():
         
     message = list(features.values())
     
-    return render_template("home.html", result1=[features, message])
-    
     if message[1].split("&")[0]=="age_rating":
         website = "secret_home.html"
     
