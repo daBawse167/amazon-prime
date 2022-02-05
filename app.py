@@ -83,7 +83,7 @@ def get_data():
         if not input_.isnumeric():
             return render_template(website, result1="Please enter the release year as a number")
     
-    input_features = message #"Results for "+", ".join([x for x in message if x != ""])
+    input_features = "Results for "+", ".join([x for x in message if x != ""])
     
     if len(result)==0:
         return render_template(website, result1="Your input did not match any movie or TV show in the database")
