@@ -66,7 +66,8 @@ def get_data():
     feature_names = ["listed_in", "rating", "release_year", "duration", "cast", "director", "country"]
     
     features = [feature_names, message]
-    return result = get_features(features)
+    result = get_features(features)
+    return result
     
     if message==['', '', '', '', '', '', '']:
         return render_template(website, result1="Please enter a value in any of the text boxes")
